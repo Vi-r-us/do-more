@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+
+/* ============= Root =============== */
+:root {
+  /* Fonts */
+  --ff-josefin: "Josefin Sans", sans-serif;
+  --fw-regular: 400;
+  --fw-bold: 400;
+
+  /* Colors */
+  --clr-primary: hsl(220, 98%, 61%);
+  --clr-primary-gradient: linear-gradient(
+    90deg,
+    hsl(192, 100%, 67%) 0%,
+    hsl(280, 87%, 65%) 100%
+  );
+
+  --clr-bodyBackground: hsl(0, 0%, 98%);
+  --clr-background: hsl(236, 33%, 92%);
+  --clr-text-200: hsl(233, 11%, 84%);
+  --clr-text-400: hsl(236, 9%, 61%);
+  --clr-text-600: hsl(235, 19%, 35%);
+
+  /* Font Size */
+  --fs-normal-size: 1.125rem;
+  --fs-heading-size: 1.75rem;
+}
+
+/* ============= GLOBAL CSS =============== */
+
+/* Josh's Custom CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+
+body {
+  background-color: var(--clr-bodyBackground);
+  font-family: var(--ff-josefin);
+  line-height: 1;
+  color: var(--clr-text-400);
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+
+.flex[direction="row"] {
+  display: flex;
+  flex-direction: row;
+}
+.flex[direction="col"] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============= PROJECT CSS =============== */
+
+.bg-image {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+}
+
+.content-center {
+  max-width: min(90vw, 40rem);
+  margin-inline: auto;
+  margin-top: 3em;
+  gap: 2em;
+
+  > p {
+    text-align: center;
+  }
+}
+
+.heading-section {
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+
+  .app-heading {
+    font-size: var(--fs-heading-size);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+  }
+
+  .theme-switch {
+    cursor: pointer;
+  }
+}
