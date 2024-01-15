@@ -15,6 +15,7 @@
     hsl(280, 87%, 65%) 100%
   );
 
+  --clr-formBackground: white;
   --clr-bodyBackground: hsl(0, 0%, 98%);
   --clr-background: hsl(236, 33%, 92%);
   --clr-text-200: hsl(233, 11%, 84%);
@@ -96,6 +97,29 @@ a {
   flex-direction: column;
 }
 
+input[type="text"],
+textarea {
+  border: none;
+  resize: none;
+  /* outline: none; */
+}
+
+.checkbox {
+  cursor: pointer;
+  border-radius: 50vh;
+  height: 25px;
+  width: 25px;
+  outline: 1px solid var(--clr-text-200);
+
+  &.checked {
+    background: var(--clr-primary-gradient);
+    outline: none;
+
+    display: grid;
+    place-content: center;
+  }
+}
+
 /* ============= PROJECT CSS =============== */
 
 .bg-image {
@@ -128,6 +152,56 @@ a {
   }
 
   .theme-switch {
+    cursor: pointer;
+  }
+}
+
+.main-section {
+  --padding: 1em;
+  --gap: 1em;
+  --borderRadius: 0.5em;
+  gap: 1em;
+}
+
+/* Form Styles */
+.form-control {
+  background-color: var(--clr-formBackground);
+  border-radius: var(--borderRadius);
+  box-shadow: 0px 10px 20px var(--clr-background);
+  padding: var(--padding);
+  gap: var(--gap);
+  align-items: center;
+
+  .text-input {
+    width: 100%;
+  }
+}
+
+.items {
+  border-radius: var(--borderRadius);
+  background-color: var(--clr-formBackground);
+  box-shadow: 0px 10px 20px var(--clr-background);
+  overflow: hidden;
+}
+
+.single-item {
+  border-bottom: 1px solid var(--clr-text-200);
+  gap: var(--gap);
+  padding: var(--padding);
+  align-items: center;
+
+  p {
+    text-transform: capitalize;
+    color: var(--clr-text-600);
+    &.completed {
+      text-decoration: line-through;
+    }
+  }
+
+  .remove-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
     cursor: pointer;
   }
 }

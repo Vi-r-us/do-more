@@ -8,7 +8,10 @@ import Items from "./components/Items";
 // Images
 import bgDesktopLight from "./assets/bg-desktop-light.jpg";
 import bgMobileLight from "./assets/bg-mobile-light.jpg";
+import bgDesktopDark from "./assets/bg-desktop-dark.jpg";
+import bgMobileDark from "./assets/bg-mobile-dark.jpg";
 import iconSun from "./assets/icon-sun.svg";
+import iconMoon from "./assets/icon-moon.svg";
 
 const defaultItems = [
   { id: nanoid(), title: "walk the dog", isDone: false },
@@ -27,10 +30,10 @@ const App = () => {
       <main className="content-center flex" direction="col">
         <section className="heading-section flex" direction="row">
           <h1 className="app-heading">todo</h1>
-          <img src={iconSun} className="theme-switch" alt="switch theme" />
+          <img src={iconMoon} className="theme-switch" alt="switch theme" />
         </section>
 
-        <section className="main-section">
+        <section className="main-section flex" direction="col">
           <ToastContainer position="top-center" />
           <Form />
           <Items items={items} />

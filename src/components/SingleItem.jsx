@@ -1,26 +1,25 @@
 /* eslint-disable react/prop-types */
+import iconCheck from "../assets/icon-check.svg";
+import iconCross from "../assets/icon-cross.svg";
+
 const SingleItem = ({ item }) => {
   return (
-    <div className='single-item'>
-      <input
-        type='checkbox'
-        checked={item.isDone}
-        onChange={() => console.log('edit task')}
-      />
-      <p
-        style={{
-          textTransform: 'capitalize',
-          textDecoration: item.isDone && 'line-through',
-        }}
+    <div className="single-item flex" direction="row">
+      <span
+        className={`checkbox ${item.isDone && "checked"}`}
+        onClick={() => console.log("edit task")}
       >
+        <img src={iconCheck} />
+      </span>
+      <p className={item.isDone ? "completed" : ""}>
         {item.title}
       </p>
       <button
-        className='btn remove-btn'
-        type='button'
-        onClick={() => console.log('delete task')}
+        className="remove-btn"
+        type="button"
+        onClick={() => console.log("delete task")}
       >
-        delete
+        <img src={iconCross} />
       </button>
     </div>
   );
