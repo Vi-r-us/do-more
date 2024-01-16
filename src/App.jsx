@@ -34,7 +34,7 @@ const App = () => {
         </section>
 
         <section className="main-section flex" direction="col">
-          <ToastContainer position="top-center" />
+          {/* <ToastContainer position="top-center" /> */}
           <Form />
           <Items items={items} />
         </section>

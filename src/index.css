@@ -10,7 +10,7 @@
   /* Colors */
   --clr-primary: hsl(220, 98%, 61%);
   --clr-primary-gradient: linear-gradient(
-    90deg,
+    135deg,
     hsl(192, 100%, 67%) 0%,
     hsl(280, 87%, 65%) 100%
   );
@@ -101,6 +101,7 @@ input[type="text"],
 textarea {
   border: none;
   resize: none;
+  overflow-y: hidden;
   /* outline: none; */
 }
 
@@ -126,13 +127,21 @@ textarea {
   position: absolute;
   z-index: -1;
   top: 0;
+  width: 100vw;
+  height: 25%;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .content-center {
   max-width: min(90vw, 40rem);
   margin-inline: auto;
   margin-top: 3em;
-  gap: 2em;
+  gap: 3em;
 
   > p {
     text-align: center;
@@ -157,17 +166,17 @@ textarea {
 }
 
 .main-section {
-  --padding: 1em;
+  --padding: 1.25em 1.5em;
   --gap: 1em;
-  --borderRadius: 0.5em;
-  gap: 1em;
+  --borderRadius: 0.4em;
+  gap: 1.5em;
 }
 
 /* Form Styles */
 .form-control {
   background-color: var(--clr-formBackground);
   border-radius: var(--borderRadius);
-  box-shadow: 0px 10px 20px var(--clr-background);
+  /* box-shadow: 0px 10px 20px var(--clr-background); */
   padding: var(--padding);
   gap: var(--gap);
   align-items: center;
@@ -177,10 +186,11 @@ textarea {
   }
 }
 
-.items {
+.items,
+.last-item-ext {
   border-radius: var(--borderRadius);
   background-color: var(--clr-formBackground);
-  box-shadow: 0px 10px 20px var(--clr-background);
+  box-shadow: 0px 20px 20px var(--clr-background);
   overflow: hidden;
 }
 
@@ -191,17 +201,60 @@ textarea {
   align-items: center;
 
   p {
+    /* font-size: 0.875rem; */
+    flex: 1;
     text-transform: capitalize;
     color: var(--clr-text-600);
     &.completed {
+      color: var(--clr-text-200);
       text-decoration: line-through;
     }
   }
 
   .remove-btn {
-    margin-left: auto;
     background: none;
     border: none;
     cursor: pointer;
+  }
+}
+
+.ext {
+  color: var(--clr-text-400);
+  gap: var(--gap);
+  font-weight: bold;
+  text-transform: capitalize;
+
+  span {
+    cursor: pointer;
+  }
+  span:hover {
+    color: var(--clr-primary);
+  }
+}
+
+.last-item {
+  gap: var(--gap);
+  padding: var(--padding);
+  justify-content: space-between;
+
+  span:not(:first-child) {
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+
+  .ext {
+    @media (max-width: 539px) {
+      display: none;
+    }
+  }
+}
+
+.last-item-ext {
+  display: none;
+  padding: var(--padding);
+  justify-content: center;
+
+  @media (min-width: 540px) {
+    display: none !important;
   }
 }

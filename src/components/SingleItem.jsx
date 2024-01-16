@@ -4,7 +4,7 @@ import iconCross from "../assets/icon-cross.svg";
 
 const SingleItem = ({ item }) => {
   return (
-    <div className="single-item flex" direction="row">
+    <li className="single-item flex" direction="row">
       <span
         className={`checkbox ${item.isDone && "checked"}`}
         onClick={() => console.log("edit task")}
@@ -21,7 +21,7 @@ const SingleItem = ({ item }) => {
       >
         <img src={iconCross} />
       </button>
-    </div>
+    </li>
   );
 };
 export default SingleItem;
