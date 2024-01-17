@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { ToastContainer } from "react-toastify";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Components
 import Form from "./components/Form";
 import Items from "./components/Items";
@@ -12,19 +12,15 @@ import bgDesktopDark from "./assets/bg-desktop-dark.jpg";
 import bgMobileDark from "./assets/bg-mobile-dark.jpg";
 import iconSun from "./assets/icon-sun.svg";
 import iconMoon from "./assets/icon-moon.svg";
+import axios from "axios";
 
-const defaultItems = [
-  { id: nanoid(), title: "walk the dog", isDone: false },
-  { id: nanoid(), title: "wash dishes", isDone: false },
-  { id: nanoid(), title: "drink coffee", isDone: true },
-  { id: nanoid(), title: "take a nap", isDone: false },
-];
 const App = () => {
-  const [items, setItems] = useState(defaultItems);
+
   return (
     <>
       <picture className="bg-image">
-        <img src={bgDesktopLight} alt="background image" />
+        <source media="(min-width:540px)" srcSet={bgDesktopLight}></source>
+        <img src={bgMobileLight} alt="background image" />
       </picture>
 
       <main className="content-center flex" direction="col">
@@ -36,7 +32,7 @@ const App = () => {
         <section className="main-section flex" direction="col">
           {/* <ToastContainer position="top-center" /> */}
           <Form />
-          <Items items={items} />
+          <Items />
         </section>
 
         <p>Drag and drop to reorder list</p>

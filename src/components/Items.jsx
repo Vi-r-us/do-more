@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+import { useGlobalContext } from "../context";
 import SingleItem from "./SingleItem";
-const Items = ({ items }) => {
+const Items = () => {
+  const { items } = useGlobalContext();
   return (
     <>
       <ul className="items">
@@ -18,6 +20,7 @@ const Items = ({ items }) => {
           <span>clear completed</span>
         </li>
       </ul>
+      
       <div className="last-item-ext ext flex" direction="row">
         <span>all</span>
         <span>active</span>
