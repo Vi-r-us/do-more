@@ -1,7 +1,10 @@
 import axios from "axios";
 
-const customFetch = axios.create({
+export const customFetch = axios.create({
   baseURL: "http://localhost:500-/api/tasks",
 });
 
-export default customFetch;
+export const mapToArray = (map) => Array.from(map.values());
+export const arrayToMap = (array) => new Map(array.map((it) => [it.id, it]));
+
+// export default customFetch;

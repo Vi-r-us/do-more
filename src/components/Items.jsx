@@ -2,8 +2,16 @@
 /* eslint-disable no-unused-vars */
 import { useGlobalContext } from "../context";
 import SingleItem from "./SingleItem";
+
 const Items = () => {
-  const { items } = useGlobalContext();
+  const {
+    filteredItems: items,
+    allItems,
+    allActiveItems,
+    allCompletedItems,
+  } = useGlobalContext();
+  // console.log(items);
+
   return (
     <>
       <ul className="items">
@@ -11,20 +19,20 @@ const Items = () => {
           return <SingleItem key={item.id} item={item} />;
         })}
         <li className="last-item flex" direction="row">
-          <span>5 items left</span>
+          <span>{items.length} items left</span>
           <div className="ext flex" direction="row">
-            <span>all</span>
-            <span>active</span>
-            <span>completed</span>
+            <button onClick={() => allItems()}>all</button>
+            <button onClick={() => allActiveItems()}>active</button>
+            <button onClick={() => allCompletedItems()}>completed</button>
           </div>
-          <span>clear completed</span>
+          <button>clear completed</button>
         </li>
-      </ul>
-      
+      </ul> 
+
       <div className="last-item-ext ext flex" direction="row">
-        <span>all</span>
-        <span>active</span>
-        <span>completed</span>
+        <button onClick={() => allItems()}>all</button>
+        <button onClick={() => allActiveItems()}>active</button>
+        <button onClick={() => allCompletedItems()}>completed</button>
       </div>
     </>
   );

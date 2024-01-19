@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import iconCheck from "../assets/icon-check.svg";
+import { useGlobalContext } from "../context";
 
 const Form = () => {
+  const { addItem } = useGlobalContext();
   const txHeight = 20;
   const [newItemName, setNewItemName] = useState("");
   const textareaRef = useRef(null);
@@ -21,11 +23,16 @@ const Form = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      // console.log(newItemName);
+      addItem(newItemName);
+      setNewItemName("");
+      e.preventDefault();
+    }
   };
 
   return (
-    <form className="form-control flex" direction="row" onSubmit={handleSubmit}>
+    <form className="form-control flex" direction="row">
       <span className="checkbox">
         <img src={iconCheck} />
       </span>
@@ -36,11 +43,13 @@ const Form = () => {
         ref={textareaRef}
         value={newItemName}
         onInput={() => handleTextareaHeight()}
+        onKeyDown={handleSubmit}
         onChange={(event) => setNewItemName(event.target.value)}
       />
       {/* <button type='submit' className='btn'>
           add task
         </button> */}
+      {/* <p>{newItemName}</p> */}
     </form>
   );
 };

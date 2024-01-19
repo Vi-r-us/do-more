@@ -1,23 +1,24 @@
 /* eslint-disable react/prop-types */
 import iconCheck from "../assets/icon-check.svg";
 import iconCross from "../assets/icon-cross.svg";
+import { useGlobalContext } from "../context";
 
 const SingleItem = ({ item }) => {
+  const { editItem, deleteItem } = useGlobalContext();
+
   return (
     <li className="single-item flex" direction="row">
-      <span
+      <button
         className={`checkbox ${item.isDone && "checked"}`}
-        onClick={() => console.log("edit task")}
+        onClick={() => editItem(item.id)}
       >
         <img src={iconCheck} />
-      </span>
-      <p className={item.isDone ? "completed" : ""}>
-        {item.title}
-      </p>
+      </button>
+      <p className={item.isDone ? "completed" : ""}>{item.title}</p>
       <button
         className="remove-btn"
         type="button"
-        onClick={() => console.log("delete task")}
+        onClick={() => deleteItem(item.id)}
       >
         <img src={iconCross} />
       </button>
