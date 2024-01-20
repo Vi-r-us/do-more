@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { nanoid } from "nanoid";
-import { arrayToMap, mapToArray } from "./utils";
+import { arrayToMap } from "./utils";
 
 const AppContext = React.createContext();
 
@@ -20,7 +20,7 @@ const defaultItems = [
 // eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
   const [itemsMap, setItemsMap] = useState(arrayToMap(defaultItems));
-  const [filteredItems, setFilteredItems] = useState(mapToArray(itemsMap));
+  const [currentFilter, setCurrentFilter] = useState("all");
 
   const addItem = (title) => {
     const updatedItemsMap = new Map([...itemsMap]);
@@ -41,23 +41,16 @@ const AppProvider = ({ children }) => {
     const updatedItemsMap = new Map([...itemsMap]);
     updatedItemsMap.delete(id);
     setItemsMap(updatedItemsMap);
-    setFilteredItems([...mapToArray(updatedItemsMap)]);
+    // setFilteredItems([...mapToArray(updatedItemsMap)]);
   };
-
-  const allItems = () => setFilteredItems([...mapToArray(itemsMap)]);
-  const allActiveItems = () =>
-    setFilteredItems(mapToArray(itemsMap).filter((item) => !item.isDone));
-  const allCompletedItems = () =>
-    setFilteredItems(mapToArray(itemsMap).filter((item) => item.isDone));
 
   return (
     <AppContext.Provider
       value={{
-        filteredItems,
-        setItemsMap,
-        allItems,
-        allActiveItems,
-        allCompletedItems,
+        itemsMap,
+        currentFilter,
+        setCurrentFilter,
+
         addItem,
         editItem,
         deleteItem,

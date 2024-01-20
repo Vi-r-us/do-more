@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+import { useState } from "react";
 import { useGlobalContext } from "../context";
+import { getItemByFilter } from "../utils";
 import SingleItem from "./SingleItem";
 
 const Items = () => {
   const {
-    filteredItems: items,
+    itemsMap,
+    currentFilter,
     allItems,
     allActiveItems,
     allCompletedItems,
   } = useGlobalContext();
-  // console.log(items);
+
+  const items = getItemByFilter(currentFilter, itemsMap);
 
   return (
     <>
@@ -27,7 +31,7 @@ const Items = () => {
           </div>
           <button>clear completed</button>
         </li>
-      </ul> 
+      </ul>
 
       <div className="last-item-ext ext flex" direction="row">
         <button onClick={() => allItems()}>all</button>
