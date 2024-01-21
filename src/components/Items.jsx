@@ -1,20 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
 import { useGlobalContext } from "../context";
 import { getItemByFilter } from "../utils";
 import SingleItem from "./SingleItem";
 
 const Items = () => {
-  const {
-    itemsMap,
-    currentFilter,
-    allItems,
-    allActiveItems,
-    allCompletedItems,
-  } = useGlobalContext();
+  const { itemsMap, currentFilter, setCurrentFilter, deleteAllItems } =
+    useGlobalContext();
 
   const items = getItemByFilter(currentFilter, itemsMap);
+
+  const ifActive = (status) => (currentFilter === status ? "active" : "");
 
   return (
     <>
@@ -25,18 +21,48 @@ const Items = () => {
         <li className="last-item flex" direction="row">
           <span>{items.length} items left</span>
           <div className="ext flex" direction="row">
-            <button onClick={() => allItems()}>all</button>
-            <button onClick={() => allActiveItems()}>active</button>
-            <button onClick={() => allCompletedItems()}>completed</button>
+            <button
+              className={ifActive("all")}
+              onClick={() => setCurrentFilter("all")}
+            >
+              all
+            </button>
+            <button
+              className={ifActive("active")}
+              onClick={() => setCurrentFilter("active")}
+            >
+              active
+            </button>
+            <button
+              className={ifActive("completed")}
+              onClick={() => setCurrentFilter("completed")}
+            >
+              completed
+            </button>
           </div>
-          <button>clear completed</button>
+          <button onClick={() => deleteAllItems()}>clear completed</button>
         </li>
       </ul>
 
       <div className="last-item-ext ext flex" direction="row">
-        <button onClick={() => allItems()}>all</button>
-        <button onClick={() => allActiveItems()}>active</button>
-        <button onClick={() => allCompletedItems()}>completed</button>
+        <button
+          className={ifActive("all")}
+          onClick={() => setCurrentFilter("all")}
+        >
+          all
+        </button>
+        <button
+          className={ifActive("active")}
+          onClick={() => setCurrentFilter("active")}
+        >
+          active
+        </button>
+        <button
+          className={ifActive("completed")}
+          onClick={() => setCurrentFilter("completed")}
+        >
+          completed
+        </button>
       </div>
     </>
   );

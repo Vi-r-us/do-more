@@ -1,24 +1,50 @@
 import axios from "axios";
+import { nanoid } from "nanoid";
+
+const defaultItems = [
+  { id: nanoid(), title: "Complete online JavaScript course", isDone: true },
+  { id: nanoid(), title: "Jog around the park 3x", isDone: false },
+  { id: nanoid(), title: "10 minutes meditation", isDone: false },
+  { id: nanoid(), title: "Read for 1 hour", isDone: false },
+  { id: nanoid(), title: "Pick up groceries", isDone: false },
+  {
+    id: nanoid(),
+    title: "Complete Todo App on Frontend Mentor",
+    isDone: false,
+  },
+];
 
 export const customFetch = axios.create({
   baseURL: "http://localhost:500-/api/tasks",
 });
 
 export const getItemByFilter = (filter, itemsMap) => {
-  // console.log(itemsMap);
   if (filter === "all") return [...mapToArray(itemsMap)];
   else if (filter === "active")
     return mapToArray(itemsMap).filter((item) => !item.isDone);
   else return mapToArray(itemsMap).filter((item) => item.isDone);
 };
 
-// const allItems = (itemsMap) => setFilteredItems([...mapToArray(itemsMap)]);
-// const allActiveItems = (itemsMap) =>
-//   setFilteredItems(mapToArray(itemsMap).filter((item) => !item.isDone));
-// const allCompletedItems = (itemsMap) =>
-//   setFilteredItems(mapToArray(itemsMap).filter((item) => item.isDone));
+export const getLocalStorage = () => {
+  let list = localStorage.getItem("list");
+  if (list) list = JSON.parse(localStorage.getItem("list"));
+  else list = defaultItems;
+  return list;
+};
+export const setLocalStorage = (itemsMap) => {
+  const itemsArray = mapToArray(itemsMap);
+  localStorage.setItem("list", JSON.stringify(itemsArray));
+};
 
-const mapToArray = (map) => Array.from(map.values());
-export const arrayToMap = (array) => new Map(array.map((it) => [it.id, it]));
+const mapToArray = (map) => {
+  // if array is already an array
+  if (Array.isArray(map)) return map;
+  return Array.from(map.values());
+};
+export const arrayToMap = (array) => {
+  // if array is already an map
+  if (!Array.isArray(array)) return array;
+  return new Map(array.map((it) => [it.id, it]));
+};
 
 // export default customFetch;

@@ -23,8 +23,20 @@ const Form = () => {
   };
 
   const handleSubmit = (e) => {
+    if (
+      newItemName === null ||
+      newItemName === undefined ||
+      newItemName.trim().length === 0
+    ) {
+      // handleTextareaHeight();
+      textareaRef.current.style.height = `${txHeight}px`;
+      console.log("press enter");
+      setNewItemName("");
+      return;
+    }
+
     if (e.keyCode == 13 && e.shiftKey == false) {
-      // console.log(newItemName);
+      // if (newItemName === '') return;
       addItem(newItemName);
       setNewItemName("");
       e.preventDefault();

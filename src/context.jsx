@@ -1,21 +1,10 @@
 import React, { useContext, useState } from "react";
 import { nanoid } from "nanoid";
-import { arrayToMap } from "./utils";
+import { arrayToMap, getLocalStorage, setLocalStorage } from "./utils";
 
 const AppContext = React.createContext();
 
-const defaultItems = [
-  { id: nanoid(), title: "Complete online JavaScript course", isDone: true },
-  { id: nanoid(), title: "Jog around the park 3x", isDone: false },
-  { id: nanoid(), title: "10 minutes meditation", isDone: false },
-  { id: nanoid(), title: "Read for 1 hour", isDone: false },
-  { id: nanoid(), title: "Pick up groceries", isDone: false },
-  {
-    id: nanoid(),
-    title: "Complete Todo App on Frontend Mentor",
-    isDone: false,
-  },
-];
+const defaultItems = getLocalStorage();
 
 // eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
@@ -27,6 +16,7 @@ const AppProvider = ({ children }) => {
     const newItem = { id: nanoid(), title: title, isDone: false };
     updatedItemsMap.set(newItem.id, newItem);
     setItemsMap(updatedItemsMap);
+    setLocalStorage(updatedItemsMap);
   };
 
   const editItem = (id) => {
@@ -35,13 +25,20 @@ const AppProvider = ({ children }) => {
     newItem.isDone = !newItem.isDone;
     updatedItemsMap.set(id, newItem);
     setItemsMap(updatedItemsMap);
+    setLocalStorage(updatedItemsMap);
   };
 
   const deleteItem = (id) => {
     const updatedItemsMap = new Map([...itemsMap]);
     updatedItemsMap.delete(id);
     setItemsMap(updatedItemsMap);
-    // setFilteredItems([...mapToArray(updatedItemsMap)]);
+    setLocalStorage(updatedItemsMap);
+  };
+
+  const deleteAllItems = () => {
+    const updatedItemsMap = new Map();
+    setItemsMap(updatedItemsMap);
+    setLocalStorage(updatedItemsMap);
   };
 
   return (
@@ -50,10 +47,10 @@ const AppProvider = ({ children }) => {
         itemsMap,
         currentFilter,
         setCurrentFilter,
-
         addItem,
         editItem,
         deleteItem,
+        deleteAllItems,
       }}
     >
       {children}?

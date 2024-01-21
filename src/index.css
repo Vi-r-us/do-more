@@ -102,7 +102,7 @@ textarea {
   border: none;
   resize: none;
   overflow-y: hidden;
-  /* outline: none; */
+  outline: none;
 }
 
 button {
@@ -237,6 +237,9 @@ button:hover {
   font-weight: bold;
 
   button:hover {
+    color: var(--clr-text-600);
+  }
+  .active {
     color: var(--clr-primary);
   }
 }
@@ -246,11 +249,6 @@ button:hover {
   padding: var(--padding);
   justify-content: space-between;
   align-items: center;
-
-  /* span:not(:first-child) {
-    cursor: pointer;
-    text-transform: capitalize;
-  } */
 
   .ext {
     @media (max-width: 539px) {
