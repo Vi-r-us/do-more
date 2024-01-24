@@ -5,20 +5,23 @@ import { useGlobalContext } from "../context";
 
 const SingleItem = ({ item }) => {
   const { editItem, deleteItem } = useGlobalContext();
+  const { isDone, title, id } = item;
 
   return (
     <li className="single-item flex" direction="row">
       <button
-        className={`checkbox ${item.isDone && "checked"}`}
-        onClick={() => editItem(item.id)}
+        className={`checkbox ${isDone && "checked"}`}
+        onClick={() => editItem(id)}
       >
         <img src={iconCheck} />
       </button>
-      <p className={item.isDone ? "completed" : ""}>{item.title}</p>
+      <p className={isDone ? "completed" : ""}>
+        {title.charAt(0).toUpperCase() + title.slice(1)}
+      </p>
       <button
         className="remove-btn"
         type="button"
-        onClick={() => deleteItem(item.id)}
+        onClick={() => deleteItem(id)}
       >
         <img src={iconCross} />
       </button>

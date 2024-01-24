@@ -1,6 +1,10 @@
 import axios from "axios";
 import { nanoid } from "nanoid";
 
+export const customFetch = axios.create({
+  baseURL: "http://localhost:5000/api/tasks",
+});
+
 const defaultItems = [
   { id: nanoid(), title: "Complete online JavaScript course", isDone: true },
   { id: nanoid(), title: "Jog around the park 3x", isDone: false },
@@ -13,10 +17,6 @@ const defaultItems = [
     isDone: false,
   },
 ];
-
-export const customFetch = axios.create({
-  baseURL: "http://localhost:500-/api/tasks",
-});
 
 export const getItemByFilter = (filter, itemsMap) => {
   if (filter === "all") return [...mapToArray(itemsMap)];

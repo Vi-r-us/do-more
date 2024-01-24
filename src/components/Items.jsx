@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+import { useQuery } from "react-query";
 import { useGlobalContext } from "../context";
-import { getItemByFilter } from "../utils";
+import { customFetch, getItemByFilter } from "../utils";
 import SingleItem from "./SingleItem";
 
 const Items = () => {

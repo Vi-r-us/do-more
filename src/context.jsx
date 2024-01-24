@@ -1,15 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import { arrayToMap, getLocalStorage, setLocalStorage } from "./utils";
+import {
+  arrayToMap,
+  customFetch,
+  getLocalStorage,
+  setLocalStorage,
+} from "./utils";
+import { useQuery } from "react-query";
 
 const AppContext = React.createContext();
 
 const defaultItems = getLocalStorage();
 
+const QUERY_KEY = "tasks";
+
 // eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
   const [itemsMap, setItemsMap] = useState(arrayToMap(defaultItems));
   const [currentFilter, setCurrentFilter] = useState("all");
+
+  // TODO: add server side support
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: () => customFetch.get("/"),
+  });
+
+  useEffect(() => {
+    if (data?.data.taskList) setItemsMap(arrayToMap(data?.data.taskList));
+    console.log(data);
+  }, [data?.data.taskList]);
 
   const addItem = (title) => {
     const updatedItemsMap = new Map([...itemsMap]);
