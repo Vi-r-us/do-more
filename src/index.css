@@ -24,7 +24,22 @@
 
   /* Font Size */
   --fs-normal-size: 1.125rem;
-  --fs-heading-size: 1.75rem;
+  --fs-heading-size: 2.25rem;
+}
+.dark-theme {
+  /* Colors */
+  --clr-primary-gradient: linear-gradient(
+    135deg,
+    hsl(192, 100%, 67%) 0%,
+    hsl(280, 87%, 65%) 100%
+  );
+
+  --clr-formBackground: hsl(235, 24%, 19%);
+  --clr-bodyBackground: hsl(235, 21%, 11%);
+  --clr-background: hsl(240, 22%, 7%);
+  --clr-text-200: hsl(237, 14%, 26%);
+  --clr-text-400: hsl(234, 11%, 52%);
+  --clr-text-600: hsl(234, 39%, 85%);
 }
 
 /* ============= GLOBAL CSS =============== */
@@ -96,13 +111,15 @@ a {
   display: flex;
   flex-direction: column;
 }
-  
+
 input[type="text"],
 textarea {
   border: none;
   resize: none;
   overflow-y: hidden;
   outline: none;
+  background-color: var(--clr-formBackground);
+  color: var(--clr-text-600);
 }
 
 button {
@@ -121,11 +138,21 @@ button:hover {
   height: 25px;
   width: 25px;
   outline: 1px solid var(--clr-text-200);
+  > img {
+    opacity: 0;
+  }
+
+  &:hover {
+    /* outline with gradient */
+    outline-color: var(--clr-primary-gradient);
+  }
 
   &.checked {
     background: var(--clr-primary-gradient);
     outline: none;
-
+    > img {
+      opacity: 1;
+    }
     display: grid;
     place-content: center;
   }
@@ -168,6 +195,23 @@ button:hover {
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5em;
+    display: table-cell;
+    line-height: 0.5;
+  }
+
+  div:hover {
+    position: relative;
+    &::before {
+      content: "Switch Theme";
+      width: max-content;
+      background-color: transparent;
+      color: rgba(255, 255, 255, 0.5);
+
+      position: absolute;
+      right: calc(100% + 1em);
+      height: 100%;
+      top: 25%;
+    }
   }
 
   .theme-switch {
@@ -193,6 +237,9 @@ button:hover {
 
   .checkbox {
     aspect-ratio: 1 / 1;
+    &:hover {
+      outline: 1px solid var(--clr-text-200);
+    }
   }
 
   .text-input {
@@ -200,12 +247,18 @@ button:hover {
   }
 }
 
+.items {
+  position: relative;
+  transition: all 0.15s;
+}
+
 .items,
 .last-item-ext {
+  z-index: 1;
   border-radius: var(--borderRadius);
   background-color: var(--clr-formBackground);
   box-shadow: 0px 20px 20px var(--clr-background);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .single-item {
@@ -213,11 +266,20 @@ button:hover {
   gap: var(--gap);
   padding: var(--padding);
   align-items: center;
+  cursor: grab;
+  transition: scale 0.15s;
+  touch-action: manipulation;
 
   p {
-    /* font-size: 0.875rem; */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+
     flex: 1;
-    /* text-transform: capitalize; */
     color: var(--clr-text-600);
     &.completed {
       color: var(--clr-text-200);
@@ -229,7 +291,45 @@ button:hover {
     background: none;
     border: none;
     cursor: pointer;
+    z-index: 101;
+    opacity: 0;
+    &:hover {
+      img {
+        filter: brightness(0) saturate(100%) invert(36%) sepia(64%)
+          saturate(1588%) hue-rotate(203deg) brightness(103%) contrast(98%);
+      }
+    }
   }
+
+  &:hover {
+    .remove-btn {
+      opacity: 1;
+    }
+  }
+}
+
+.dark-theme .single-item p {
+  &.completed {
+    color: var(--clr-text-400);
+    opacity: 0.6;
+  }
+}
+
+.single-item.dragging {
+  pointer-events: none;
+  touch-action: none;
+  -ms-touch-action: none;
+  cursor: grabbing;
+
+  position: fixed;
+
+  border: 1px solid var(--clr-text-200);
+  background-color: var(--clr-formBackground);
+  box-shadow: 0px 20px 20px var(--clr-background);
+  scale: 1.03;
+
+  border-radius: var(--borderRadius);
+  z-index: 100;
 }
 
 .ext {
@@ -265,5 +365,58 @@ button:hover {
 
   @media (min-width: 540px) {
     display: none !important;
+  }
+}
+
+/* Loading Animation */
+#root {
+  animation: visible 0.5s linear 3.5s forwards;
+}
+
+@keyframes visible {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* For Site Loading Animation */
+.middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+}
+
+.text-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: dash 2.5s linear forwards, filling 2.5s ease-in forwards;
+  font-size: 80px;
+}
+
+.text-line text {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  fill: url(#MyGradient);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes filling {
+  0%,
+  90% {
+    fill-opacity: 0;
+  }
+  100% {
+    fill: transparent;
+    fill-opacity: 1;
   }
 }

@@ -1,24 +1,32 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useQuery } from "react-query";
+import { useRef } from "react";
 import { useGlobalContext } from "../context";
-import { customFetch, getItemByFilter } from "../utils";
+import { getItemByFilter } from "../utils";
 import SingleItem from "./SingleItem";
 
 const Items = () => {
-  const { itemsMap, currentFilter, setCurrentFilter, deleteAllItems } =
+  const itemsContainerRef = useRef(null);
+  const { tasks, currentFilter, setCurrentFilter, deleteAllTasks } =
     useGlobalContext();
 
-  const items = getItemByFilter(currentFilter, itemsMap);
-
+  const items = getItemByFilter(currentFilter, tasks);
   const ifActive = (status) => (currentFilter === status ? "active" : "");
 
   return (
     <>
-      <ul className="items">
-        {items.map((item) => {
-          return <SingleItem key={item.id} item={item} />;
+      <ul className="items" ref={itemsContainerRef}>
+        {items.map((item, index) => {
+          return (
+            <SingleItem
+              key={item.id}
+              item={item}
+              index={index}
+              itemsContainerRef={itemsContainerRef}
+            />
+          );
         })}
+
         <li className="last-item flex" direction="row">
           <span>{items.length} items left</span>
           <div className="ext flex" direction="row">
@@ -41,7 +49,7 @@ const Items = () => {
               completed
             </button>
           </div>
-          <button onClick={() => deleteAllItems()}>clear completed</button>
+          <button onClick={() => deleteAllTasks()}>clear completed</button>
         </li>
       </ul>
 

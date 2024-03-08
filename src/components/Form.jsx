@@ -3,7 +3,7 @@ import iconCheck from "../assets/icon-check.svg";
 import { useGlobalContext } from "../context";
 
 const Form = () => {
-  const { addItem } = useGlobalContext();
+  const { addTask } = useGlobalContext();
   const txHeight = 20;
   const [newItemName, setNewItemName] = useState("");
   const textareaRef = useRef(null);
@@ -37,7 +37,7 @@ const Form = () => {
 
     if (e.keyCode == 13 && e.shiftKey == false) {
       // if (newItemName === '') return;
-      addItem(newItemName);
+      addTask(newItemName);
       setNewItemName("");
       e.preventDefault();
     }
