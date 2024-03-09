@@ -208,7 +208,7 @@ const AppProvider = ({ children }) => {
         handleDragStart,
       }}
     >
-      {children}?
+      {children}
     </AppContext.Provider>
   );
 };
